@@ -27,3 +27,8 @@ class GeneralInfoSerializer(serializers.ModelSerializer):
         if not value.endswith('redberry.ge'):
             raise serializers.ValidationError('Email must end with @redberry.ge')
         return value
+    
+    def validate_number(self, value):
+        if not value.startswith('+995'):
+            raise serializers.ValidationError('Phone number must start with +995')
+        return value
