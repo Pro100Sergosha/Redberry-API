@@ -15,6 +15,7 @@ class ExperienceInfo(models.Model):
     end_date = models.DateField()
     info = models.TextField()
 
+
 class EducationInfo(models.Model):
     DEGREE_CHOICES = (
         ('საშუალო სკოლის დიპლომი', 'საშუალო სკოლის დიპლომი'),
@@ -31,3 +32,9 @@ class EducationInfo(models.Model):
     degree = models.CharField(max_length=28, choices=DEGREE_CHOICES)
     end_date = models.DateField()
     info = models.TextField()
+
+
+class Resume(models.Model):
+    general = models.ForeignKey(GeneralInfo, on_delete=models.CASCADE)
+    experience = models.ForeignKey(ExperienceInfo, on_delete=models.CASCADE)
+    education = models.ForeignKey(EducationInfo, on_delete=models.CASCADE)

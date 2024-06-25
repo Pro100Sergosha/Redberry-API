@@ -1,27 +1,13 @@
 import re
 from rest_framework import serializers
-from .models import GeneralInfo, EducationInfo, ExperienceInfo
+from drf_writable_nested import WritableNestedModelSerializer
+from .models import GeneralInfo, EducationInfo, ExperienceInfo, Resume
 
 
-class GeneralInfoSerializer(serializers.ModelSerializer):
+class GeneralInfoSerializer(WritableNestedModelSerializer):
     class Meta:
         model = GeneralInfo
         fields = '__all__'
-
-    def validate_name(self, value):
-        if not re.match(r'^[\u10A0-\u10FF\s]+$', value):
-            raise serializers.ValidationError('Name must be in georgian')
-        return value
-    
-    def validate_last_name(self, value):
-        if not re.match(r'^[\u10A0-\u10FF\s]+$', value):
-            raise serializers.ValidationError('Last name must be in georgian')
-        return value
-    
-    def validate_bio(self, value):
-        if not re.match(r'^[\u10A0-\u10FF\s]+$', value):
-            raise serializers.ValidationError('Bio must be in georgian')
-        return value
     
     def validate_email(self, value):
         if not value.endswith('redberry.ge'):
@@ -32,3 +18,29 @@ class GeneralInfoSerializer(serializers.ModelSerializer):
         if not value.startswith('+995'):
             raise serializers.ValidationError('Phone number must start with +995')
         return value
+    
+    def validate(self, attrs):
+        for atr in attrs:
+            if attrs[atr] in ['name', 'last_name', 'bio'] and not re.match(r'^[\u10A0-\u10FF\s]+$', attrs[atr]):
+                raise serializers.ValidationError('This text must be written in georgian')
+        return attrs
+
+class ExperienceSerializer(WritableNestedModelSerializer):
+    class Meta:
+        model = ExperienceInfo
+        fields = '__all__'
+    
+
+class EducationSerializer(WritableNestedModelSerializer):
+    class Meta:
+        model = EducationInfo
+        fields = '__all__'
+
+class ResumeSerializer(WritableNestedModelSerializer):
+    general = GeneralInfoSerializer(many = True)
+    experience = ExperienceSerializer(many = True)
+    education = EducationSerializer(many = True)
+
+    class Meta:
+        model = Resume
+        fields = '__all__'
