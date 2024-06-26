@@ -80,11 +80,11 @@ WSGI_APPLICATION = 'redberry_API.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
-    'default': dj_database_url.parse('postgresql://redberry_api_user:KLx7m5YCcSYPeUJwhK4cPiBe5LgeEPR2@dpg-cpsnn0l6l47c73e9ljpg-a/redberry_api')
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+    # 'default': dj_database_url.parse('postgresql://redberry_api_user:KLx7m5YCcSYPeUJwhK4cPiBe5LgeEPR2@dpg-cpsnn0l6l47c73e9ljpg-a/redberry_api')
 }
 
 # Password validation
@@ -129,6 +129,6 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 CORS_ALLOW_ALL_ORIGINS = True
