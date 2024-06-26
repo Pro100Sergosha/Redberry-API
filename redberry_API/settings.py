@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-(dg**v59xb*i4dp%3g$6g@bsk5q+5!!%9%e+mq+^1lm(_fypxw'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = ['*', 'redberry-api.onrender.com']
 
 
@@ -80,11 +80,11 @@ WSGI_APPLICATION = 'redberry_API.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-    # 'default': dj_database_url.parse('postgresql://redberry_api_user:KLx7m5YCcSYPeUJwhK4cPiBe5LgeEPR2@dpg-cpsnn0l6l47c73e9ljpg-a/redberry_api')
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
+    'default': dj_database_url.parse('postgresql://redberry_api_user:KLx7m5YCcSYPeUJwhK4cPiBe5LgeEPR2@dpg-cpsnn0l6l47c73e9ljpg-a/redberry_api')
 }
 
 # Password validation
@@ -121,7 +121,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
