@@ -85,7 +85,7 @@ DATABASES = {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
-    'default': dj_database_url.parse('postgresql://redberry_api_user:KLx7m5YCcSYPeUJwhK4cPiBe5LgeEPR2@dpg-cpsnn0l6l47c73e9ljpg-a/redberry_api')
+    'default': dj_database_url.parse('postgresql://redberry_api_user:KLx7m5YCcSYPeUJwhK4cPiBe5LgeEPR2@dpg-cpsnn0l6l47c73e9ljpg-a.frankfurt-postgres.render.com/redberry_api')
 }
 
 # Password validation
