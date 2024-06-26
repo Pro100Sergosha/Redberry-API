@@ -43,10 +43,11 @@ INSTALLED_APPS = [
     "corsheaders",
 ]
 
-MEDIA_URL = "media/"
+MEDIA_URL = "/media/"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -81,8 +82,8 @@ WSGI_APPLICATION = 'redberry_API.wsgi.application'
 
 DATABASES = {
     # 'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
     'default': dj_database_url.parse('postgresql://redberry_api_user:KLx7m5YCcSYPeUJwhK4cPiBe5LgeEPR2@dpg-cpsnn0l6l47c73e9ljpg-a/redberry_api')
 }
@@ -121,7 +122,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
