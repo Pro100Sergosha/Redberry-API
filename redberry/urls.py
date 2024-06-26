@@ -11,6 +11,6 @@ router.register(r'education', EducationViewset)
 router.register(r'resume', ResumeViewset)
 
 urlpatterns = [
-    path('api/', include(router.urls))
+    path('', include(router.urls))
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
