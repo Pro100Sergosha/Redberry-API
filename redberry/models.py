@@ -3,7 +3,7 @@ from django.db import models
 class GeneralInfo(models.Model):
     name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    photo = models.ImageField(null=True, blank=True)
+    photo = models.ImageField()
     bio = models.TextField()
     email = models.EmailField()
     number = models.CharField(max_length=17)

@@ -128,13 +128,14 @@ class ResumeTests(TestCase):
 
     def test_create_resume(self):
         data = {
-        'general': [{'id': 1,'name': 'სერგო', 'last_name': 'აზიზბეკიანი', 'bio': 'აღწერა ჩემს თავზე', 'email': 'testemail@redberry.ge', 'number': '+995 544 44 11 39'}],
-        'education': [{'id': 1,'education': 'Algosoft', 'degree': 'სტუდენტი', 'end_date': '2024-07-01', 'info': 'test info'}],
-        'experience': [{'id': 1,'position': 'Test Position', 'employer': 'Sergo', 'start_date': '2024-06-25', 'end_date': '2024-07-25', 'info': 'test info'}]
+        'general': [{'name': 'სერგო', 'last_name': 'აზიზბეკიანი', 'bio': 'აღწერა ჩემს თავზე', 'email': 'testemail@redberry.ge', 'number': '+995 544 44 11 39'}],
+        'education': [{'education': 'Algosoft', 'degree': 'სტუდენტი', 'end_date': '2024-07-01', 'info': 'test info'}],
+        'experience': [{'position': 'Test Position', 'employer': 'Sergo', 'start_date': '2024-06-25', 'end_date': '2024-07-25', 'info': 'test info'}]
             }
         data = json.dumps(data)
         response = self.client.post('/api/resume/', data, content_type='application/json')
         self.assertEqual(response.status_code, 201)
+
     def test_update_delete_resume(self):
         data = {
         'general': [{'id': 1,'name': 'სერგო', 'last_name': 'აზიზბეკიანი', 'bio': 'აღწერა ჩემს თავზე', 'email': 'testemail@redberry.ge', 'number': '+995 544 44 11 39'}],
