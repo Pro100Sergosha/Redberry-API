@@ -4,7 +4,7 @@ from drf_writable_nested import WritableNestedModelSerializer
 from .models import GeneralInfo, EducationInfo, ExperienceInfo, Resume
 
 
-class GeneralInfoSerializer(WritableNestedModelSerializer):
+class GeneralInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = GeneralInfo
         fields = '__all__'
@@ -25,13 +25,13 @@ class GeneralInfoSerializer(WritableNestedModelSerializer):
                 raise serializers.ValidationError('This text must be written in georgian')
         return attrs
 
-class ExperienceSerializer(WritableNestedModelSerializer):
+class ExperienceSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExperienceInfo
         fields = '__all__'
     
 
-class EducationSerializer(WritableNestedModelSerializer):
+class EducationSerializer(serializers.ModelSerializer):
     class Meta:
         model = EducationInfo
         fields = '__all__'
@@ -40,7 +40,6 @@ class ResumeSerializer(WritableNestedModelSerializer):
     general = GeneralInfoSerializer(many = True)
     experience = ExperienceSerializer(many = True)
     education = EducationSerializer(many = True)
-
     class Meta:
         model = Resume
         fields = '__all__'

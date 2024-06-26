@@ -9,6 +9,7 @@ router.register(r'general', GeneralInfoViewset)
 router.register(r'experience', ExperienceInfoViewset)
 router.register(r'education', EducationViewset)
 router.register(r'resume', ResumeViewset)
+
 urlpatterns = [
     path('api/', include(router.urls))
 ]

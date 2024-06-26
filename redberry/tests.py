@@ -1,8 +1,8 @@
 from django.test import TestCase
-from rest_framework.test import APIClient
+from rest_framework.test import APIClient, APITestCase
 from django.core.files.uploadedfile import SimpleUploadedFile
 from .models import GeneralInfo, ExperienceInfo, EducationInfo, Resume
-
+import json
 class GeneralInfoTests(TestCase):
             
     def setUp(self):
@@ -125,40 +125,34 @@ class EducationInfoTests(TestCase):
 class ResumeTests(TestCase):
     def setUp(self):
         self.client = APIClient()
-        self.general = GeneralInfo.objects.create(name = 'სატესტო', 
-                                                      last_name = 'სატესტო', 
-                                                      bio = 'სატესტო', 
-                                                      email = 'testemail@redberry.ge',
-                                                      number = '+995 544 44 11 39',)
-        self.experience = ExperienceInfo.objects.create(position = 'Middle', 
-                                                      employer = 'Lasha',
-                                                      start_date = '2024-06-25',
-                                                      end_date = '2024-07-25',
-                                                      info = 'Test info')
-        self.education = EducationInfo.objects.create(education = 'Algouni', 
-                                                     degree = 'სტუდენტი', 
-                                                     end_date = '2024-07-01', 
-                                                     info = 'test info')
-        self.resume = Resume.objects.create(general = self.general, experience = self.experience, education = self.education)
 
     def test_create_resume(self):
         data = {
-            'general': [{'name': 'სერგო', 
-                         'last_name': 'აზიზბეკიანი', 
-                         'bio': 'აღწერა ჩემს თავზე', 
-                         'email': 'testemail@redberry.ge',
-                         'number': '+995 544 44 11 39',
-                         }],
-            'experience': [{'position': 'Test Position', 
-                            'employer': 'Sergo', 
-                            'start_date': '2024-06-25',
-                            'end_date': '2024-07-25',
-                            'info': 'test info'
-                            }],
-            'education': [{'education': 'Algosoft',
-                           'degree': 'სტუდენტი',
-                           'end_date': '2024-07-01',
-                           'info': 'test info'}]
-        }
-        response = self.client.post('/api/resume/', data=data)
+        'general': [{'id': 1,'name': 'სერგო', 'last_name': 'აზიზბეკიანი', 'bio': 'აღწერა ჩემს თავზე', 'email': 'testemail@redberry.ge', 'number': '+995 544 44 11 39'}],
+        'education': [{'id': 1,'education': 'Algosoft', 'degree': 'სტუდენტი', 'end_date': '2024-07-01', 'info': 'test info'}],
+        'experience': [{'id': 1,'position': 'Test Position', 'employer': 'Sergo', 'start_date': '2024-06-25', 'end_date': '2024-07-25', 'info': 'test info'}]
+            }
+        data = json.dumps(data)
+        response = self.client.post('/api/resume/', data, content_type='application/json')
         self.assertEqual(response.status_code, 201)
+    def test_update_delete_resume(self):
+        data = {
+        'general': [{'id': 1,'name': 'სერგო', 'last_name': 'აზიზბეკიანი', 'bio': 'აღწერა ჩემს თავზე', 'email': 'testemail@redberry.ge', 'number': '+995 544 44 11 39'}],
+        'education': [{'id': 1,'education': 'Algosoft', 'degree': 'სტუდენტი', 'end_date': '2024-07-01', 'info': 'test info'}],
+        'experience': [{'id': 1,'position': 'Test Position', 'employer': 'Sergo', 'start_date': '2024-06-25', 'end_date': '2024-07-25', 'info': 'test info'}]
+            }
+        data = json.dumps(data)
+        response = self.client.post('/api/resume/', data, content_type='application/json')
+        self.assertEqual(response.status_code, 201)
+
+        data = {
+        'general': [{'id': 1,'name': 'სატესტო', 'last_name': 'აზიზბეკიანი', 'bio': 'აღწერა ჩემს თავზე', 'email': 'testemail@redberry.ge', 'number': '+995 544 44 11 39'}],
+        'education': [{'id': 1,'education': 'AlgoUni', 'degree': 'სტუდენტი', 'end_date': '2024-07-01', 'info': 'test info'}],
+        'experience': [{'id': 1,'position': 'Junior', 'employer': 'Sergo', 'start_date': '2024-06-25', 'end_date': '2024-07-25', 'info': 'test info'}]
+            }
+        data = json.dumps(data)
+        response = self.client.patch('/api/resume/1/', data, content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+
+        response = self.client.delete('/api/resume/1/')
+        self.assertEqual(response.status_code, 204)
