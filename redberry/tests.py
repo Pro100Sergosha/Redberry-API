@@ -1,7 +1,7 @@
 from django.test import TestCase
-from rest_framework.test import APIClient, APITestCase
+from rest_framework.test import APIClient
 from django.core.files.uploadedfile import SimpleUploadedFile
-from .models import GeneralInfo, ExperienceInfo, EducationInfo, Resume
+from .models import GeneralInfo, ExperienceInfo, EducationInfo
 import json
 class GeneralInfoTests(TestCase):
             
