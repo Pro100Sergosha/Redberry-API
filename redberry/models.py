@@ -37,4 +37,4 @@ class Resume(models.Model):
     general = models.ManyToManyField(GeneralInfo)
     experience = models.ManyToManyField(ExperienceInfo)
     education = models.ManyToManyField(EducationInfo)
-    photo = models.ImageField()
+    photo = models.ImageField(null=True)
